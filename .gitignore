@@ -1,0 +1,14 @@
+# Cubase-Generated Files
+Audio/
+Edits/
+Images/
+Mixdown/
+Track Pictures/
+Auto Saves/
+
+# Large Media (not in Git — use external storage)
+_Video/
+_Artwork/
+
+# macOS
+.DS_Store

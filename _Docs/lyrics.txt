@@ -1,0 +1,9 @@
+# {{SONG_TITEL}} — Lyrics
+
+---
+
+{{LYRICS}}
+
+---
+
+> ISRC: DE-ABC-26-00001
