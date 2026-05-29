@@ -29,7 +29,8 @@ Mein Songtitel/
 ├── 📁 _Docs/              ← Text, Metadaten
 │   ├── metadata.txt      ← ISRC, Credits, BPM, Key
 │   ├── lyrics.txt        ← Songtext
-│   └── notes.md          ← Recording-Session-Doku
+│   ├── notes.md          ← Recording-Session-Doku
+│   └── versions.md       ← Cubase-Versions-Logbuch
 │
 ├── 📁 _Notation/          ← Leadsheets, Scores
 ├── 📁 _Video/             ← Live-Mitschnitte

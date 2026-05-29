@@ -41,6 +41,7 @@
 - Raum: Studio (4 × 5 × 2,20 m)
 - Recording-Pegel: Peak −12 dBFS, nie über −6
 - Siehe auch: `notes.md` (Recording-Session-Doku)
+- Versionen: `versions.md` (Versions-Logbuch aller Cubase-Saves)
 
 ---
 
