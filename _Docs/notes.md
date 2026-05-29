@@ -13,11 +13,18 @@
 
 ## Mikrofonierung
 
-| Spur | Mikrofon | Preamp / Interface | Abstand | Position | Pattern | Pad / HPF | Besonderheit |
-|---|---|---|---|---|---|---|---|
-| 1 | | | cm | | | | |
-| 2 | | | cm | | | | |
-| 3 | | | cm | | | | |
+| Spur | Mikrofon | Preamp / Interface | Abstand | Höhe | Position | Pattern | Pad / HPF | Besonderheit |
+|---|---|---|---|---|---|---|---|---|---|
+| 1 | | | cm | cm | | | | |
+| 2 | | | cm | cm | | | | |
+| 3 | | | cm | cm | | | | |
+
+**Spalten:**
+- **Abstand** = Distanz Mikro → Quelle
+- **Höhe** = ab Boden, in cm
+- **Position** = horizontale Platzierung („Mitte Snare", „12. Bund", „Floor-Tom-Seite")
+- **Pattern** = Niere, Kugel, Acht, XY, ORTF
+- **Pad / HPF** = nur wenn aktiv am Mikrofon
 
 ---
 
