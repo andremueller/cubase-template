@@ -5,27 +5,30 @@
 
 ---
 
+## Meilensteine
+
 | # | Datum | Cubase-Datei | Meilenstein | Notiz |
 |---|---|---|---|---|
-| 01 | {{DATUM}} | `{{SONG}}_01_Tracking.cpr` | Recording | Rohmaterial, unbearbeitet |
-| 02 | {{DATUM}} | `{{SONG}}_02_Post-Recording.cpr` | Post-Recording | Save New Version DIREKT nach Aufnahme → Rücksetzpunkt |
-| 03 | | `{{SONG}}_03_Comp-and-Clean.cpr` | Comp & Clean | Takes kompiliert, Stille entfernt |
-| 04 | | `{{SONG}}_04_Tuning-Ready.cpr` | Edit | Pitch/Timing fertig, vor dem Mix |
-| 05 | | `{{SONG}}_05_Mix-Main.cpr` | Mix | Aktiver Haupt-Mix |
-| — | | `{{SONG}}_05_Mix_FORK_...cpr` | Fork | Experimente, parallel zum Haupt-Mix |
+| 01 | {{DATUM}} | `{{SONG}}_01.cpr` | 🔒 **Recording** | Original nach Aufnahme — NIE anfassen! |
+| 02 | {{DATUM}} | `{{SONG}}_02.cpr` | — | `Ctrl+Alt+S` direkt nach Recording → hiermit weiterarbeiten |
+| 03 | | `{{SONG}}_03.cpr` | **Comp & Clean** | Takes kompiliert, Stille entfernt, Fades gesetzt |
+| 04 | | `{{SONG}}_04.cpr` | **Edit** | Pitch/Timing/Quantize fertig, konsolidiert |
+| 05 | | `{{SONG}}_05.cpr` | **Mix** | Aktiver Haupt-Mix |
+| — | | `{{SONG}}_05_FORK_...cpr` | Fork | Experimente parallel zum Haupt-Mix |
+
+> **Warum 01 und 02?** Version 01 ist das eingefrorene Original — falls beim Editieren etwas schiefgeht, hast du einen sauberen Rücksetzpunkt. `Ctrl+Alt+S` unmittelbar nach der Session erzeugt Version 02, in der du dann tatsächlich arbeitest. 01 und 02 sind inhaltsgleich, aber 01 bleibt für immer unberührt.
 
 ---
 
 ## Legende
 
-| Meilenstein | Bedeutung |
-|---|---|
-| **Recording** | Aufnahme-Session, unbearbeitet |
-| **Post-Recording** | Save New Version direkt nach Recording → schneller Rücksetzpunkt |
-| **Comp & Clean** | Beste Takes kompiliert, Pausen/Silence raus, Fades gesetzt |
-| **Edit** | Pitch-Korrektur, Timing/Quantize, konsolidiert |
-| **Mix** | Aktiver Mix → ab hier können Forks abzweigen |
-| **Fork** | Experimenteller Zweig (z. B. „Electro-Bridge", „Drum-Ersatz") |
+| Meilenstein | Bedeutung | Typischer Cubase-Befehl |
+|---|---|---|
+| 🔒 **Recording** | Aufnahme-Session, unbearbeitet — eingefroren | — |
+| **Comp & Clean** | Beste Takes kompiliert, Pausen raus, Fades gesetzt | `Ctrl+Alt+S` |
+| **Edit** | Pitch-Korrektur, Quantize, konsolidiert | `Ctrl+Alt+S` |
+| **Mix** | Aktiver Mix — ab hier können Forks abzweigen | `Ctrl+Alt+S` oder `Ctrl+Shift+S` (Fork) |
+| **Fork** | Experimenteller Zweig („Electro-Bridge", „Drum-Ersatz") | `Ctrl+Shift+S` |
 
 ---
 
@@ -59,6 +62,6 @@
 > **Cubase-Shortcuts:**  
 > `Ctrl+Alt+S` → Save New Version  
 > `Ctrl+Shift+S` → Save As (für Forks)  
-> `Ctrl+S` → Quick Save (ACHTUNG: überschreibt aktuelle Version!)  
+> `Ctrl+S` → Quick Save (ACHTUNG: überschreibt aktuelle Version!)
 
 → Vollständige Anleitung: [[Cubase Song-Versionierung Git-Style]] (Logseq)
