@@ -7,7 +7,7 @@
 1. Dieses Repo klonen oder als ZIP laden
 2. Ordner umbenennen: `cubase-template` → `Mein Songtitel`
 3. Cubase-Projekt im Ordner speichern
-4. `_Docs/metadata.txt` ausfüllen (Credits, ISRC, BPM, Key)
+4. `_Docs/metadata.md` ausfüllen (Credits, ISRC, BPM, Key)
 5. `_Docs/notes.md` für Recording-Session-Doku nutzen
 
 ## Ordnerstruktur
@@ -27,7 +27,7 @@ Mein Songtitel/
 │   └── Masters/          ← fertig gemastert
 │
 ├── 📁 _Docs/              ← Text, Metadaten
-│   ├── metadata.txt      ← ISRC, Credits, BPM, Key
+│   ├── metadata.md       ← ISRC, Credits, BPM, Key
 │   ├── lyrics.txt        ← Songtext
 │   ├── notes.md          ← Recording-Session-Doku
 │   └── versions.md       ← Cubase-Versions-Logbuch
