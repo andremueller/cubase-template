@@ -17,17 +17,17 @@ Mein Songtitel/
 ├── 📁 Audio/              ← Cubase (Aufnahmen)
 ├── 📁 Edits/              ← Cubase (Stems, Freeze)
 ├── 📁 Images/             ← Cubase (Screenshots)
-├── 📁 Mixdown/            ← Cubase (Audio Mixdown)
+├── 📁 Mixdown/            ← Cubase: Audio Mixdown (automatisch!)
+│   │                       Export-Ziel für ALLE Bounces
+│   ├── Mixes/            ← Hörproben, Zwischenstände
+│   ├── Stems/            ← Gruppenspuren
+│   └── Masters/          ← fertig gemastert
+│
 ├── 📁 Track Pictures/     ← Cubase (Track-Icons)
 ├── 📁 Auto Saves/         ← Cubase (automatisch)
 │
 ├── 📁 _Sources/           ← Rohmaterial von extern
 │                           (Handy-Demos, Voice-Memos, Referenzen)
-│
-├── 📁 _Bounces/           ← Manuelle Exporte
-│   ├── Mixes/            ← Hörproben, Zwischenstände
-│   ├── Stems/            ← Gruppenspuren
-│   └── Masters/          ← fertig gemastert
 │
 ├── 📁 _Docs/              ← Text, Metadaten
 │   ├── metadata.md       ← ISRC, Credits, BPM, Key
