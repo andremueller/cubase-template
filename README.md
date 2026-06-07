@@ -21,6 +21,9 @@ Mein Songtitel/
 ├── 📁 Track Pictures/     ← Cubase (Track-Icons)
 ├── 📁 Auto Saves/         ← Cubase (automatisch)
 │
+├── 📁 _Sources/           ← Rohmaterial von extern
+│                           (Handy-Demos, Voice-Memos, Referenzen)
+│
 ├── 📁 _Bounces/           ← Manuelle Exporte
 │   ├── Mixes/            ← Hörproben, Zwischenstände
 │   ├── Stems/            ← Gruppenspuren
