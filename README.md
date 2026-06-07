@@ -27,7 +27,10 @@ Mein Songtitel/
 ├── 📁 Auto Saves/         ← Cubase (automatisch)
 │
 ├── 📁 _Sources/           ← Rohmaterial von extern
-│                           (Handy-Demos, Voice-Memos, Referenzen)
+│                           (Handy-Demos, Voice-Memos)
+│
+├── 📁 _Refs/              ← Referenztracks von Künstlern
+│                           (Stimmung, Sound, Mix-Ästhetik)
 │
 ├── 📁 _Docs/              ← Text, Metadaten
 │   ├── metadata.md       ← ISRC, Credits, BPM, Key

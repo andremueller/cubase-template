@@ -9,6 +9,7 @@ Auto Saves/
 # Large Media (not in Git — use external storage)
 _Video/
 _Artwork/
+_Refs/
 
 # macOS
 .DS_Store
