@@ -2,14 +2,32 @@
 Audio/
 Edits/
 Images/
-Mixdown/
 Track Pictures/
 Auto Saves/
 
+# Mixdown — Verzeichnisstruktur getrackt, Audio-Inhalte ignoriert
+Mixdown/*
+!Mixdown/.gitkeep
+!Mixdown/Mixes/
+!Mixdown/Stems/
+!Mixdown/Masters/
+Mixdown/Mixes/*
+!Mixdown/Mixes/.gitkeep
+Mixdown/Stems/*
+!Mixdown/Stems/.gitkeep
+Mixdown/Masters/*
+!Mixdown/Masters/.gitkeep
+
 # Large Media (not in Git — use external storage)
-_Video/
-_Artwork/
-_Refs/
+# Verzeichnisse mit .gitkeep getrackt, Inhalte ignoriert
+_Video/*
+!_Video/.gitkeep
+_Artwork/*
+!_Artwork/.gitkeep
+_Refs/*
+!_Refs/.gitkeep
+_Sources/*
+!_Sources/.gitkeep
 
 # macOS
 .DS_Store
