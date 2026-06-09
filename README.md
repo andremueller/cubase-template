@@ -26,12 +26,14 @@
 | `--bpm` | — | — | Geschwindigkeit |
 | `--key` | — | — | Tonart (z.B. `D-Moll`) |
 | `--template` | — | `default` | `.cpr`-Vorlage aus `templates/` |
-| `--dir` | — | `.` (aktuelles Verz.) | Zielverzeichnis |
+| `--dir` | — | `/Volumes/PROJECTS/Music/…` | Basis-Pfad überschreiben |
 
 **Was das Skript tut:**
-- Erstellt einen neuen Ordner mit dem Songtitel
+- Erstellt Verzeichnis unter `/Volumes/PROJECTS/Music/<Artist>/<Song>/` (CamelCase)
+- Ohne `--artist`: `/Volumes/PROJECTS/Music/<Song>/`
+- Mit `--dir`: Basis-Pfad frei überschreibbar
 - Kopiert die Ordner-Struktur (`_Docs`, `_Sources`, `_Refs`, …)
-- Kopiert das gewählte `.cpr`-Template und benennt es nach dem Songtitel
+- Kopiert das gewählte `.cpr`-Template und benennt es CamelCase nach dem Songtitel
 - Befüllt `metadata.md` und `versions.md` mit den angegebenen Werten
 - **Überschreibt NIE bestehende Dateien** — bei erneutem Aufruf werden nur neue Dateien ergänzt
 
