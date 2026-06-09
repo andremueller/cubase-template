@@ -7,13 +7,19 @@
 #
 # Optionen:
 #   --title       Songtitel (Pflicht)
-#   --artist      Interpret
+#   --artist      Interpret (CamelCase → Unterordner)
 #   --bpm         Geschwindigkeit
 #   --key         Tonart (z.B. "D-Moll", "C-Dur")
 #   --template    .cpr-Template (default: default)
 #                 Verfügbar: default, mastering, mixing, composition, audio, grainfield
-#   --dir         Zielverzeichnis (default: aktuelles Verzeichnis)
+#   --dir         Basis-Pfad überschreiben
+#                 Default: /Volumes/PROJECTS/Music/<Artist>/<Song>
+#                 Ohne Artist: /Volumes/PROJECTS/Music/<Song>
 #   --help        Diese Hilfe
+#
+# Namenskonvention:
+#   - Ordner: CamelCase ohne Leerzeichen (MeinNeuerSong, AnnaBeispiel)
+#   - .cpr:    CamelCase ohne Leerzeichen (MeinNeuerSong.cpr)
 #
 # Verhalten:
 #   - Überschreibt NIE bestehende Dateien im Ziel
@@ -29,10 +35,23 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
 # ─── Defaults ──────────────────────────────────────────────────
 TEMPLATE_NAME="default"
-TARGET_DIR="."
+TARGET_DIR=""
 ARTIST=""
 BPM=""
 KEY=""
+
+# ─── CamelCase-Konvertierung ───────────────────────────────────
+to_camelcase() {
+    # "Mein neuer Song" → "MeinNeuerSong"
+    local input="$(echo "$1" | sed 's/[^a-zA-Z0-9 ]//g')"
+    local result="" word upper rest
+    for word in $input; do
+        upper="$(echo "${word:0:1}" | tr '[:lower:]' '[:upper:]')"
+        rest="$(echo "${word:1}" | tr '[:upper:]' '[:lower:]')"
+        result="${result}${upper}${rest}"
+    done
+    echo "$result"
+}
 
 # ─── Hilfe ─────────────────────────────────────────────────────
 usage() {
@@ -78,10 +97,29 @@ if [[ ! -f "$TEMPLATE_CPR" ]]; then
     exit 1
 fi
 
-# Zielverzeichnis — Songtitel-Ordnernamen bereinigen
+# ─── Pfade berechnen ───────────────────────────────────────────
+# CamelCase-Namen für Ordner & .cpr-Datei
 SAFE_TITLE="$(echo "$TITLE" | sed 's/[^a-zA-Z0-9äöüßÄÖÜ _-]//g; s/  */ /g')"
-SONG_DIR="$TARGET_DIR/$SAFE_TITLE"
-SANITIZED="$(echo "$SAFE_TITLE" | sed 's/ /_/g')"  # für Dateinamen ohne Leerzeichen
+CC_TITLE="$(to_camelcase "$SAFE_TITLE")"    # MeinNeuerSong
+
+if [[ -n "$TARGET_DIR" ]]; then
+    # --dir explizit gesetzt → exakt so verwenden (kein CamelCase-Zwang)
+    if [[ -n "$ARTIST" ]]; then
+        CC_ARTIST="$(to_camelcase "$ARTIST")"
+        SONG_DIR="$TARGET_DIR/$CC_ARTIST/$CC_TITLE"
+    else
+        SONG_DIR="$TARGET_DIR/$CC_TITLE"
+    fi
+else
+    # Default: /Volumes/PROJECTS/Music/<Artist>/<Song>
+    BASE="/Volumes/PROJECTS/Music"
+    if [[ -n "$ARTIST" ]]; then
+        CC_ARTIST="$(to_camelcase "$ARTIST")"
+        SONG_DIR="$BASE/$CC_ARTIST/$CC_TITLE"
+    else
+        SONG_DIR="$BASE/$CC_TITLE"
+    fi
+fi
 
 # ─── Ordner anlegen ────────────────────────────────────────────
 mkdir -p "$SONG_DIR"
@@ -112,14 +150,15 @@ copy_dir_safe() {
 
 echo ""
 echo "═══════════════════════════════════════════"
-echo "  Neuer Song: $SAFE_TITLE"
+echo "  Song:       $SAFE_TITLE"
+[[ -n "$ARTIST" ]] && echo "  Interpret:  $ARTIST"
 echo "  Template:   $TEMPLATE_NAME"
 echo "  Ziel:       $SONG_DIR"
 echo "═══════════════════════════════════════════"
 echo ""
 
 # ─── 1. .cpr-Template kopieren ────────────────────────────────
-CPR_DEST="$SONG_DIR/${SANITIZED}.cpr"
+CPR_DEST="$SONG_DIR/${CC_TITLE}.cpr"
 safe_copy "$TEMPLATE_CPR" "$CPR_DEST"
 
 # ─── 2. Ordner-Struktur kopieren ──────────────────────────────
@@ -140,9 +179,7 @@ done
 META="$SONG_DIR/_Docs/metadata.md"
 if [[ -f "$META" ]]; then
     TODAY="$(date +%Y-%m-%d)"
-    # Songtitel als H1
     sed -i "s/^# .*/# $SAFE_TITLE/" "$META"
-    # Template-Platzhalter ersetzen
     sed -i "s|{{SONG_TITEL}}|$SAFE_TITLE|g" "$META"
     sed -i "s|{{BPM}}|${BPM:--}|g" "$META"
     sed -i "s|{{KEY}}|${KEY:--}|g" "$META"
@@ -156,7 +193,7 @@ VER="$SONG_DIR/_Docs/versions.md"
 if [[ -f "$VER" ]]; then
     TODAY="$(date +%Y-%m-%d)"
     sed -i "s|{{SONG_TITEL}}|$SAFE_TITLE|g" "$VER"
-    sed -i "s|{{SONG}}|$SANITIZED|g" "$VER"
+    sed -i "s|{{SONG}}|$CC_TITLE|g" "$VER"
     sed -i "s|{{DATUM}}|$TODAY|g" "$VER"
     echo "  ✓ versions.md initialisiert"
 fi
@@ -172,6 +209,5 @@ fi
 
 echo ""
 echo "✅ Fertig: $SONG_DIR"
-echo "   Cubase-Projekt: $SANITIZED.cpr"
-echo "   Nächster Schritt: Cubase öffnen → $SANITIZED.cpr"
-echo "                     Oder: $SONG_DIR/_Docs/metadata.md ausfüllen"
+echo "   Cubase-Projekt: $CC_TITLE.cpr"
+echo "   Nächster Schritt: Cubase öffnen → $SONG_DIR/$CC_TITLE.cpr"
