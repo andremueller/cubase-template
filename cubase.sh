@@ -15,6 +15,8 @@
 #   --dir         Basis-Pfad überschreiben
 #                 Default: /Volumes/PROJECTS/Music/<Artist>/<Song>
 #                 Ohne Artist: /Volumes/PROJECTS/Music/<Song>
+#   --git         Git-Repo im Song-Verzeichnis initialisieren
+#                 (leerer Initial-Commit auf 'main', .gitignore getrackt)
 #   --help        Diese Hilfe
 #
 # Namenskonvention:
@@ -39,6 +41,7 @@ TARGET_DIR=""
 ARTIST=""
 BPM=""
 KEY=""
+GIT_INIT=false
 
 # ─── CamelCase-Konvertierung ───────────────────────────────────
 to_camelcase() {
@@ -77,6 +80,7 @@ while [[ $# -gt 0 ]]; do
         --key)      KEY="$2"; shift 2 ;;
         --template) TEMPLATE_NAME="$2"; shift 2 ;;
         --dir)      TARGET_DIR="$2"; shift 2 ;;
+        --git)      GIT_INIT=true; shift ;;
         --help)     usage ;;
         *)          echo "Unbekannte Option: $1" >&2; usage ;;
     esac
@@ -175,6 +179,9 @@ for sub in Mixes Stems Masters; do
     mkdir -p "$SONG_DIR/Mixdown/$sub"
 done
 
+# ─── 3b. .gitignore kopieren (wird von copy_dir_safe übersprungen) ──
+safe_copy "$SCRIPT_DIR/.gitignore" "$SONG_DIR/.gitignore"
+
 # ─── 4. metadata.md befüllen (nur wenn aus Template kopiert) ──
 META="$SONG_DIR/_Docs/metadata.md"
 if [[ -f "$META" ]]; then
@@ -207,7 +214,31 @@ if [[ -f "$NOTES" ]]; then
     echo "  ✓ notes.md initialisiert"
 fi
 
+# ─── 7. Git-Repo initialisieren (wenn --git) ───────────────────
+if $GIT_INIT; then
+    if command -v git &>/dev/null; then
+        cd "$SONG_DIR"
+        git init -b main &>/dev/null
+        # Fallback-Identität falls nicht global konfiguriert
+        git config user.name "${ARTIST:-Unknown}" 2>/dev/null || true
+        git config user.email "${ARTIST:-unknown}@cubase.local" 2>/dev/null || true
+        # Commit 1: komplett leer (nur Root-Commit)
+        git commit --allow-empty -m "🎵 Initial: $SAFE_TITLE" &>/dev/null
+        # Commit 2: .gitignore + alle Template-Dateien
+        git add -A
+        git commit -m "Template: Ordnerstruktur + $CC_TITLE.cpr" &>/dev/null
+        cd - &>/dev/null
+        echo ""
+        echo "  ✓ Git-Repo initialisiert (main, 2 Commits)"
+    else
+        echo "  ⚠ git nicht gefunden — Repo nicht initialisiert" >&2
+    fi
+fi
+
 echo ""
 echo "✅ Fertig: $SONG_DIR"
 echo "   Cubase-Projekt: $CC_TITLE.cpr"
+if $GIT_INIT; then
+    echo "   Git:            initialisiert (main, 2 Commits)"
+fi
 echo "   Nächster Schritt: Cubase öffnen → $SONG_DIR/$CC_TITLE.cpr"

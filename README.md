@@ -27,6 +27,7 @@
 | `--key` | — | — | Tonart (z.B. `D-Moll`) |
 | `--template` | — | `default` | `.cpr`-Vorlage aus `templates/` |
 | `--dir` | — | `/Volumes/PROJECTS/Music/…` | Basis-Pfad überschreiben |
+| `--git` | — | `false` | Git-Repo initialisieren (leerer Initial-Commit + Template) |
 
 **Was das Skript tut:**
 - Erstellt Verzeichnis unter `/Volumes/PROJECTS/Music/<Artist>/<Song>/` (CamelCase)

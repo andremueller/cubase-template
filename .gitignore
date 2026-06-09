@@ -1,3 +1,11 @@
+# ─────────── Cubase-Projekt: Git-Empfehlungen ───────────
+# .cpr-Dateien sind XML-Text (keine Binärdaten), komprimieren gut
+# und lassen sich prima mit Git versionieren:
+#
+#   git init && git add .gitignore *.cpr _Docs/ && git commit -m "Initial"
+#
+# Audio, Mixdown, Video etc. werden bewusst ignoriert (zu groß).
+
 # Cubase-Generated Files
 Audio/
 Edits/
