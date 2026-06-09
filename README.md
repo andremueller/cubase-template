@@ -11,7 +11,7 @@
 ./cubase.sh --title "Mein neuer Song" --artist "Anna Beispiel" --bpm 128 --key "D-Moll"
 
 # Mit anderem Template
-./cubase.sh --title "Grainfield Live" --template grainfield --dir ~/Musik/
+./cubase.sh --title "Grainfield Live" --template Composer_v1 --dir ~/Musik/
 
 # Alle Optionen
 ./cubase.sh --help
@@ -25,17 +25,18 @@
 | `--artist` | — | — | Interpret (in metadata.md) |
 | `--bpm` | — | — | Geschwindigkeit |
 | `--key` | — | — | Tonart (z.B. `D-Moll`) |
-| `--template` | — | `default` | `.cpr`-Vorlage aus `templates/` |
+| `--template` | — | `default` | `.cpr`-Vorlage aus Cubase-Systemordner |
 | `--dir` | — | `/Volumes/PROJECTS/Music/…` | Basis-Pfad überschreiben |
-| `--git` | — | `false` | Git-Repo initialisieren (leerer Initial-Commit + Template) |
+| `--git` | — | `false` | Git-Repo initialisieren (leerer Initial-Commit + Ordnerstruktur) |
 
 **Was das Skript tut:**
 - Erstellt Verzeichnis unter `/Volumes/PROJECTS/Music/<Artist>/<Song>/` (CamelCase)
 - Ohne `--artist`: `/Volumes/PROJECTS/Music/<Song>/`
 - Mit `--dir`: Basis-Pfad frei überschreibbar
 - Kopiert die Ordner-Struktur (`_Docs`, `_Sources`, `_Refs`, …)
-- Kopiert das gewählte `.cpr`-Template und benennt es CamelCase nach dem Songtitel
+- Kopiert das gewählte `.cpr`-Template aus `~/Library/Preferences/Cubase 15/Project Templates/` und benennt es CamelCase nach dem Songtitel
 - Befüllt `metadata.md` und `versions.md` mit den angegebenen Werten
+- `.cpr`-Dateien werden **nicht** in Git versioniert — Cubase 15 Pro hat eigene Versionierung (`Ctrl+Alt+S`)
 - **Überschreibt NIE bestehende Dateien** — bei erneutem Aufruf werden nur neue Dateien ergänzt
 
 ### Manuell
@@ -77,8 +78,7 @@ Mein Songtitel/
 ├── 📁 _Video/             ← Live-Mitschnitte
 └── 📁 _Artwork/           ← Cover, Release-Grafiken
 │
-├── cubase.sh              ← Skript: neuen Song anlegen
-└── templates/             ← .cpr-Vorlagen
+└── cubase.sh              ← Skript: neuen Song anlegen
 ```
 
 ## Recording-Pegel
