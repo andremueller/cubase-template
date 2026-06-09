@@ -4,11 +4,43 @@
 
 ## Verwendung
 
-1. Dieses Repo klonen oder als ZIP laden
+### Per Skript (empfohlen)
+
+```bash
+# Neuen Song anlegen
+./cubase.sh --title "Mein neuer Song" --artist "Anna Beispiel" --bpm 128 --key "D-Moll"
+
+# Mit anderem Template
+./cubase.sh --title "Grainfield Live" --template grainfield --dir ~/Musik/
+
+# Alle Optionen
+./cubase.sh --help
+```
+
+**Optionen:**
+
+| Option | Pflicht? | Default | Beschreibung |
+|---|---|---|---|
+| `--title` | ✅ | — | Songtitel (wird Verzeichnisname) |
+| `--artist` | — | — | Interpret (in metadata.md) |
+| `--bpm` | — | — | Geschwindigkeit |
+| `--key` | — | — | Tonart (z.B. `D-Moll`) |
+| `--template` | — | `default` | `.cpr`-Vorlage aus `templates/` |
+| `--dir` | — | `.` (aktuelles Verz.) | Zielverzeichnis |
+
+**Was das Skript tut:**
+- Erstellt einen neuen Ordner mit dem Songtitel
+- Kopiert die Ordner-Struktur (`_Docs`, `_Sources`, `_Refs`, …)
+- Kopiert das gewählte `.cpr`-Template und benennt es nach dem Songtitel
+- Befüllt `metadata.md` und `versions.md` mit den angegebenen Werten
+- **Überschreibt NIE bestehende Dateien** — bei erneutem Aufruf werden nur neue Dateien ergänzt
+
+### Manuell
+
+1. Repo klonen oder als ZIP laden
 2. Ordner umbenennen: `cubase-template` → `Mein Songtitel`
 3. Cubase-Projekt im Ordner speichern
-4. `_Docs/metadata.md` ausfüllen (Credits, ISRC, BPM, Key)
-5. `_Docs/notes.md` für Recording-Session-Doku nutzen
+4. `_Docs/metadata.md` ausfüllen
 
 ## Ordnerstruktur
 
@@ -41,6 +73,9 @@ Mein Songtitel/
 ├── 📁 _Notation/          ← Leadsheets, Scores
 ├── 📁 _Video/             ← Live-Mitschnitte
 └── 📁 _Artwork/           ← Cover, Release-Grafiken
+│
+├── cubase.sh              ← Skript: neuen Song anlegen
+└── templates/             ← .cpr-Vorlagen
 ```
 
 ## Recording-Pegel

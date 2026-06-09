@@ -1,0 +1,10 @@
+# Cubase Projekt-Templates (.cpr)
+# Hier legst du deine .cpr-Vorlagen ab:
+#   default.cpr           — Standard (Recording + Mix)
+#   mixing.cpr            — Mixing-Template
+#   mastering.cpr         — Mastering-Template
+#   composition.cpr       — Komposition/MIDI
+#   audio.cpr             — Reine Audio-Aufnahme
+#   grainfield.cpr        — Grainfield-spezifisch
+#
+# → cubase.sh --template <name> wählt das passende .cpr
