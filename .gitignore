@@ -1,10 +1,9 @@
 # ─────────── Cubase-Projekt: Git-Empfehlungen ───────────
-# .cpr-Dateien sind XML-Text (keine Binärdaten), komprimieren gut
-# und lassen sich prima mit Git versionieren:
-#
-#   git init && git add .gitignore *.cpr _Docs/ && git commit -m "Initial"
-#
-# Audio, Mixdown, Video etc. werden bewusst ignoriert (zu groß).
+# .cpr-Dateien sind binär (RIFF-Container). Cubase 15 Pro
+# hat eigene Versionierung (Ctrl+Alt+S). Nur Doku & Text landen in Git.
+
+# Cubase-Projekte (Cubase versioniert selbst)
+*.cpr
 
 # Cubase-Generated Files
 Audio/

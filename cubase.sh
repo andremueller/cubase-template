@@ -10,8 +10,8 @@
 #   --artist      Interpret (CamelCase → Unterordner)
 #   --bpm         Geschwindigkeit
 #   --key         Tonart (z.B. "D-Moll", "C-Dur")
-#   --template    .cpr-Template (default: default)
-#                 Verfügbar: default, mastering, mixing, composition, audio, grainfield
+#   --template    .cpr-Template (ohne .cpr-Endung)
+#                 Aus: ~/Library/Preferences/Cubase 15/Project Templates/
 #   --dir         Basis-Pfad überschreiben
 #                 Default: /Volumes/PROJECTS/Music/<Artist>/<Song>
 #                 Ohne Artist: /Volumes/PROJECTS/Music/<Song>
@@ -34,6 +34,7 @@ set -euo pipefail
 
 # ─── Pfade ─────────────────────────────────────────────────────
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+CUBASE_TEMPLATES_DIR="$HOME/Library/Preferences/Cubase 15/Project Templates"
 
 # ─── Defaults ──────────────────────────────────────────────────
 TEMPLATE_NAME="default"
@@ -60,13 +61,13 @@ to_camelcase() {
 usage() {
     sed -n '/^# Verwendung:/,/^# =*$/p' "$0" | sed 's/^# \?//'
     echo ""
-    echo "Verfügbare Templates:"
-    if compgen -G "$SCRIPT_DIR/templates/"*.cpr > /dev/null; then
-        ls "$SCRIPT_DIR/templates/"*.cpr 2>/dev/null | sed 's|.*/||;s|\.cpr$||' | while read t; do
+    echo "Verfügbare Templates (Cubase 15):"
+    if compgen -G "$CUBASE_TEMPLATES_DIR/"*.cpr > /dev/null 2>&1; then
+        ls "$CUBASE_TEMPLATES_DIR/"*.cpr 2>/dev/null | sed 's|.*/||;s|\.cpr$||' | while read t; do
             echo "  $t"
         done
     else
-        echo "  (keine .cpr-Templates vorhanden — .cpr-Dateien in templates/ ablegen)"
+        echo "  (keine .cpr-Templates unter $CUBASE_TEMPLATES_DIR)"
     fi
     exit 0
 }
@@ -92,12 +93,14 @@ if [[ -z "${TITLE:-}" ]]; then
     usage
 fi
 
-TEMPLATE_CPR="$SCRIPT_DIR/templates/${TEMPLATE_NAME}.cpr"
+TEMPLATE_CPR="$CUBASE_TEMPLATES_DIR/${TEMPLATE_NAME}.cpr"
 
 if [[ ! -f "$TEMPLATE_CPR" ]]; then
-    echo "Fehler: Template '$TEMPLATE_NAME.cpr' nicht gefunden in templates/" >&2
+    echo "Fehler: Template '$TEMPLATE_NAME.cpr' nicht gefunden in:" >&2
+    echo "  $CUBASE_TEMPLATES_DIR" >&2
     echo "Verfügbare Templates:" >&2
-    ls "$SCRIPT_DIR/templates/"*.cpr 2>/dev/null | sed 's|.*/||;s|\.cpr$||' | sed 's/^/  /' >&2
+    ls "$CUBASE_TEMPLATES_DIR/"*.cpr 2>/dev/null | sed 's|.*/||;s|\.cpr$||' | sed 's/^/  /' >&2 || \
+        echo "  (keine .cpr-Templates vorhanden)" >&2
     exit 1
 fi
 
@@ -226,7 +229,7 @@ if $GIT_INIT; then
         git commit --allow-empty -m "🎵 Initial: $SAFE_TITLE" &>/dev/null
         # Commit 2: .gitignore + alle Template-Dateien
         git add -A
-        git commit -m "Template: Ordnerstruktur + $CC_TITLE.cpr" &>/dev/null
+        git commit -m "Template: Ordnerstruktur" &>/dev/null
         cd - &>/dev/null
         echo ""
         echo "  ✓ Git-Repo initialisiert (main, 2 Commits)"
