@@ -47,7 +47,7 @@ GIT_INIT=false
 # ─── CamelCase-Konvertierung ───────────────────────────────────
 to_camelcase() {
     # "Mein neuer Song" → "MeinNeuerSong"
-    local input="$(echo "$1" | sed 's/[^a-zA-Z0-9 ]//g')"
+    local input="$(echo "$1" | tr '-' ' ' | sed 's/[^a-zA-Z0-9 ]//g')"
     local result="" word upper rest
     for word in $input; do
         upper="$(echo "${word:0:1}" | tr '[:lower:]' '[:upper:]')"
@@ -189,12 +189,12 @@ safe_copy "$SCRIPT_DIR/.gitignore" "$SONG_DIR/.gitignore"
 META="$SONG_DIR/_Docs/metadata.md"
 if [[ -f "$META" ]]; then
     TODAY="$(date +%Y-%m-%d)"
-    sed -i "s/^# .*/# $SAFE_TITLE/" "$META"
-    sed -i "s|{{SONG_TITEL}}|$SAFE_TITLE|g" "$META"
-    sed -i "s|{{BPM}}|${BPM:--}|g" "$META"
-    sed -i "s|{{KEY}}|${KEY:--}|g" "$META"
-    sed -i "s|{{AUFNAHMEDATUM}}|$TODAY|g" "$META"
-    [[ -n "$ARTIST" ]] && sed -i "s|{{VOCAL}}|$ARTIST|g" "$META"
+    sed -i '' "s/^# .*/# $SAFE_TITLE/" "$META"
+    sed -i '' "s|{{SONG_TITEL}}|$SAFE_TITLE|g" "$META"
+    sed -i '' "s|{{BPM}}|${BPM:--}|g" "$META"
+    sed -i '' "s|{{KEY}}|${KEY:--}|g" "$META"
+    sed -i '' "s|{{AUFNAHMEDATUM}}|$TODAY|g" "$META"
+    [[ -n "$ARTIST" ]] && sed -i '' "s|{{VOCAL}}|$ARTIST|g" "$META"
     echo "  ✓ metadata.md befüllt"
 fi
 
@@ -202,9 +202,9 @@ fi
 VER="$SONG_DIR/_Docs/versions.md"
 if [[ -f "$VER" ]]; then
     TODAY="$(date +%Y-%m-%d)"
-    sed -i "s|{{SONG_TITEL}}|$SAFE_TITLE|g" "$VER"
-    sed -i "s|{{SONG}}|$CC_TITLE|g" "$VER"
-    sed -i "s|{{DATUM}}|$TODAY|g" "$VER"
+    sed -i '' "s|{{SONG_TITEL}}|$SAFE_TITLE|g" "$VER"
+    sed -i '' "s|{{SONG}}|$CC_TITLE|g" "$VER"
+    sed -i '' "s|{{DATUM}}|$TODAY|g" "$VER"
     echo "  ✓ versions.md initialisiert"
 fi
 
@@ -212,8 +212,8 @@ fi
 NOTES="$SONG_DIR/_Docs/notes.md"
 if [[ -f "$NOTES" ]]; then
     TODAY="$(date +%Y-%m-%d)"
-    sed -i "s|{{INSTRUMENT}}|$SAFE_TITLE|g" "$NOTES"
-    sed -i "s|{{DATUM}}|$TODAY|g" "$NOTES"
+    sed -i '' "s|{{INSTRUMENT}}|$SAFE_TITLE|g" "$NOTES"
+    sed -i '' "s|{{DATUM}}|$TODAY|g" "$NOTES"
     echo "  ✓ notes.md initialisiert"
 fi
 
