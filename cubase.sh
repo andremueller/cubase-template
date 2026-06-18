@@ -146,6 +146,7 @@ safe_copy() {
 # ─── Nur neue Dateien, keine existierenden überschreiben ───────
 copy_dir_safe() {
     local src="$1" dst="$2"
+    mkdir -p "$dst"
     find "$src" -type f | while read -r f; do
         local rel="${f#$src/}"
         # .gitkeep und .gitignore nicht kopieren
