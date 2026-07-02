@@ -1,7 +1,9 @@
-# Recording-Session: {{INSTRUMENT}} — {{DATUM}}
+# Recording Notes
 
-## Quick-Info
-| | |
+## Recording-Session: {{INSTRUMENT}} — {{DATUM}}
+
+### Quick-Info
+| Feld | Wert |
 |---|---|
 | **Datum** | {{DATUM}} |
 | **Instrument** | {{INSTRUMENT}} |
@@ -11,7 +13,7 @@
 
 ---
 
-## Mikrofonierung
+### Mikrofonierung
 
 | Spur | Mikrofon | Preamp / Interface | Abstand | Höhe | Position | Pattern | Pad / HPF | Besonderheit |
 |---|---|---|---|---|---|---|---|---|---|
@@ -28,7 +30,7 @@
 
 ---
 
-## Signalweg (Hardware vor AD)
+### Signalweg (Hardware vor AD)
 
 | Spur | Gerät 1 | Gerät 2 | Gerät 3 | Einstellungen |
 |---|---|---|---|---|
@@ -37,7 +39,7 @@
 
 ---
 
-## Interface / Clock
+### Interface / Clock
 
 - **Interface:** Mackie DL16s
 - **Sample Rate:** 48 kHz
@@ -47,7 +49,7 @@
 
 ---
 
-## Performance & Takes
+### Performance & Takes
 
 | Take | Marker beim Recording | Note | Verwendet? |
 |---|---|---|---|
@@ -59,14 +61,14 @@
 
 ---
 
-## Aufgefallen / Merken fürs nächste Mal
+### Aufgefallen / Merken fürs nächste Mal
 
 - 
 - 
 
 ---
 
-## Fotos
+### Fotos
 
 <!-- Fotos in _Docs/ ablegen und hier referenzieren -->
 
