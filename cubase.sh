@@ -12,6 +12,8 @@
 #   --key         Tonart (z.B. "D-Moll", "C-Dur")
 #   --template    .cpr-Template (ohne .cpr-Endung)
 #                 Aus: ~/Library/Preferences/Cubase 15/Project Templates/
+#   --no-cpr      Keine .cpr-Datei erzeugen (nur Ordnerstruktur)
+#                 Exklusiv zu --template; für Import aus anderen DAWs
 #   --dir         Basis-Pfad überschreiben
 #                 Default: /Volumes/PROJECTS/Music/<Artist>/<Song>
 #                 Ohne Artist: /Volumes/PROJECTS/Music/<Song>
@@ -38,11 +40,13 @@ CUBASE_TEMPLATES_DIR="$HOME/Library/Preferences/Cubase 15/Project Templates"
 
 # ─── Defaults ──────────────────────────────────────────────────
 TEMPLATE_NAME="default"
+TEMPLATE_SET=false
 TARGET_DIR=""
 ARTIST=""
 BPM=""
 KEY=""
 GIT_INIT=false
+NO_CPR=false
 
 # ─── CamelCase-Konvertierung ───────────────────────────────────
 to_camelcase() {
@@ -79,7 +83,8 @@ while [[ $# -gt 0 ]]; do
         --artist)   ARTIST="$2"; shift 2 ;;
         --bpm)      BPM="$2"; shift 2 ;;
         --key)      KEY="$2"; shift 2 ;;
-        --template) TEMPLATE_NAME="$2"; shift 2 ;;
+        --template) TEMPLATE_NAME="$2"; TEMPLATE_SET=true; shift 2 ;;
+        --no-cpr)   NO_CPR=true; shift ;;
         --dir)      TARGET_DIR="$2"; shift 2 ;;
         --git)      GIT_INIT=true; shift ;;
         --help)     usage ;;
@@ -93,9 +98,14 @@ if [[ -z "${TITLE:-}" ]]; then
     usage
 fi
 
+if $NO_CPR && $TEMPLATE_SET; then
+    echo "Fehler: --no-cpr kann nicht zusammen mit --template verwendet werden." >&2
+    exit 1
+fi
+
 TEMPLATE_CPR="$CUBASE_TEMPLATES_DIR/${TEMPLATE_NAME}.cpr"
 
-if [[ ! -f "$TEMPLATE_CPR" ]]; then
+if ! $NO_CPR && [[ ! -f "$TEMPLATE_CPR" ]]; then
     echo "Fehler: Template '$TEMPLATE_NAME.cpr' nicht gefunden in:" >&2
     echo "  $CUBASE_TEMPLATES_DIR" >&2
     echo "Verfügbare Templates:" >&2
@@ -160,14 +170,20 @@ echo ""
 echo "═══════════════════════════════════════════"
 echo "  Song:       $SAFE_TITLE"
 [[ -n "$ARTIST" ]] && echo "  Interpret:  $ARTIST"
-echo "  Template:   $TEMPLATE_NAME"
+if $NO_CPR; then
+    echo "  .cpr:       nicht erzeugt"
+else
+    echo "  Template:   $TEMPLATE_NAME"
+fi
 echo "  Ziel:       $SONG_DIR"
 echo "═══════════════════════════════════════════"
 echo ""
 
-# ─── 1. .cpr-Template kopieren ────────────────────────────────
-CPR_DEST="$SONG_DIR/${CC_TITLE}.cpr"
-safe_copy "$TEMPLATE_CPR" "$CPR_DEST"
+# ─── 1. .cpr-Template kopieren (optional) ─────────────────────
+if ! $NO_CPR; then
+    CPR_DEST="$SONG_DIR/${CC_TITLE}.cpr"
+    safe_copy "$TEMPLATE_CPR" "$CPR_DEST"
+fi
 
 # ─── 2. Ordner-Struktur kopieren ──────────────────────────────
 echo "Ordnerstruktur …"
@@ -241,8 +257,13 @@ fi
 
 echo ""
 echo "✅ Fertig: $SONG_DIR"
-echo "   Cubase-Projekt: $CC_TITLE.cpr"
+if $NO_CPR; then
+    echo "   Cubase-Projekt: (keines — nur Ordnerstruktur)"
+    echo "   Nächster Schritt: Projekt aus anderer DAW importieren"
+else
+    echo "   Cubase-Projekt: $CC_TITLE.cpr"
+    echo "   Nächster Schritt: Cubase öffnen → $SONG_DIR/$CC_TITLE.cpr"
+fi
 if $GIT_INIT; then
     echo "   Git:            initialisiert (main, 2 Commits)"
 fi
-echo "   Nächster Schritt: Cubase öffnen → $SONG_DIR/$CC_TITLE.cpr"
