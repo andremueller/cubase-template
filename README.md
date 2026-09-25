@@ -54,7 +54,7 @@ Mein Songtitel/
 ├── 📁 Edits/              ← Cubase (Stems, Freeze)
 ├── 📁 Images/             ← Cubase (Screenshots)
 ├── 📁 Mixdown/            ← Cubase: Audio Mixdown (automatisch!)
-│   │                       Export-Ziel für ALLE Bounces
+│                           Export-Ziel für ALLE Bounces
 │   ├── Mixes/            ← Hörproben, Zwischenstände
 │   ├── Stems/            ← Gruppenspuren
 │   └── Masters/          ← fertig gemastert
@@ -76,7 +76,7 @@ Mein Songtitel/
 │
 ├── 📁 _Notation/          ← Leadsheets, Scores
 ├── 📁 _Video/             ← Live-Mitschnitte
-└── 📁 _Artwork/           ← Cover, Release-Grafiken
+├── 📁 _Artwork/           ← Cover, Release-Grafiken
 │
 └── cubase.sh              ← Skript: neuen Song anlegen
 ```

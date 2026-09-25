@@ -3,6 +3,7 @@
 ## Recording-Session: {{INSTRUMENT}} — {{DATUM}}
 
 ### Quick-Info
+
 | Feld | Wert |
 |---|---|
 | **Datum** | {{DATUM}} |
@@ -16,7 +17,7 @@
 ### Mikrofonierung
 
 | Spur | Mikrofon | Preamp / Interface | Abstand | Höhe | Position | Pattern | Pad / HPF | Besonderheit |
-|---|---|---|---|---|---|---|---|---|---|
+|---|---|---|---|---|---|---|---|---|
 | 1 | | | cm | cm | | | | |
 | 2 | | | cm | cm | | | | |
 | 3 | | | cm | cm | | | | |

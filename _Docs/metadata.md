@@ -6,7 +6,7 @@
 
 ## Quick-Info
 
-| | |
+| Feld | Wert |
 |---|---|
 | **Titel** | {{SONG_TITEL}} |
 | **ISRC** | DE-ABC-26-00001 |
